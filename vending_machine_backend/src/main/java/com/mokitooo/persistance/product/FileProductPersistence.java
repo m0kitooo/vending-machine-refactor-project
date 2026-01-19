@@ -1,8 +1,8 @@
 package com.mokitooo.persistance.product;
 
+import com.mokitooo.config.AppConfig;
 import com.mokitooo.model.product.Product;
 import lombok.Cleanup;
-import lombok.RequiredArgsConstructor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,9 +12,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
-@RequiredArgsConstructor
 public class FileProductPersistence {
-    private final String filename;
+    private final String filename = AppConfig.INSTANCE.getProductdataFilepath();
 
     public void writeToFile(ArrayList<Product> products) throws IOException {
         @Cleanup FileWriter writer = new FileWriter(filename);

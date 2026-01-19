@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c68304c9-0dfe-4a55-a370-55a015b757bb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TableData.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_gui/src/main/java/com/mokitooo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/exception/ContainerFulfilledException.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/exception/ContainerFulfilledException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/gui/EditVendingMachineScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_gui/src/main/java/com/mokitooo/gui/EditVendingMachineScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/gui/MenuToolbar.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_gui/src/main/java/com/mokitooo/gui/MenuToolbar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/gui/ProgramWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_gui/src/main/java/com/mokitooo/gui/ProgramWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/gui/UserModeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_gui/src/main/java/com/mokitooo/gui/UserModeScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/gui/component/AddBalanceButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_gui/src/main/java/com/mokitooo/gui/component/AddBalanceButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/gui/component/SaveButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_gui/src/main/java/com/mokitooo/gui/component/SaveButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/gui/component/UserBalanceField.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_gui/src/main/java/com/mokitooo/gui/component/UserBalanceField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/gui/component/UserBalanceLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_gui/src/main/java/com/mokitooo/gui/component/UserBalanceLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/model/product/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/model/product/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/model/product/dto/CreateProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/model/product/dto/CreateProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/model/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/persistance/product/FileProductPersistence.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/persistance/product/FileProductPersistence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/persistance/product/ProductPersistence.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/persistance/product/ProductPersistence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/repository/product/InMemoryProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/repository/product/InMemoryProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/repository/product/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/repository/product/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/service/product/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/service/product/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mokitooo/service/product/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo/service/product/ProductServiceImpl.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="Record" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;m0kitooo&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/m0kitooo/vending-machine-refactor-project.git&quot;,
+    &quot;accountId&quot;: &quot;8ceaf9b3-0d1e-4388-a264-f890ccfbf748&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="37QmzBKkFF3bWbUAR2yiRdsyh1b" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/m0kitooo/Desktop/projektowanie-obiektowe/project/vending_machine_app&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/vending_machine_gui/src/main/java/com/mokitooo" />
+      <recent name="$PROJECT_DIR$/vending_machine_backend/src/main/java/com/mokitooo" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="vending_machine_app" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="vending_machine_app" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c68304c9-0dfe-4a55-a370-55a015b757bb" name="Changes" comment="" />
+      <created>1766846782268</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1766846782268</updated>
+      <workItem from="1766846783854" duration="8598000" />
+      <workItem from="1766874096304" duration="5565000" />
+      <workItem from="1766923490483" duration="1885000" />
+      <workItem from="1766937468906" duration="4173000" />
+      <workItem from="1767005967207" duration="7875000" />
+      <workItem from="1767027420289" duration="4555000" />
+      <workItem from="1767878934517" duration="921000" />
+      <workItem from="1768168933657" duration="6708000" />
+      <workItem from="1768207541215" duration="43000" />
+      <workItem from="1768207597287" duration="176000" />
+      <workItem from="1768207778484" duration="31000" />
+      <workItem from="1768402068708" duration="23000" />
+      <workItem from="1768845517301" duration="680000" />
+      <workItem from="1768846205964" duration="270000" />
+      <workItem from="1768846490993" duration="1525000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

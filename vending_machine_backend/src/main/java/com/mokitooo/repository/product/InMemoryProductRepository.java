@@ -1,5 +1,6 @@
 package com.mokitooo.repository.product;
 
+import com.mokitooo.exception.EntityNotFoundException;
 import com.mokitooo.model.product.Product;
 import lombok.NonNull;
 
@@ -22,8 +23,12 @@ public class InMemoryProductRepository implements ProductRepository {
     }
 
     @Override
-    public Product findById(@NonNull UUID id) {
-        return products.get(id);
+    public Product findById(@NonNull UUID id) throws EntityNotFoundException {
+        Product product = products.get(id);
+        if (product == null) {
+            throw new EntityNotFoundException("Product with ID " + id + " not found.");
+        }
+        return product;
     }
 
     @Override
@@ -44,7 +49,7 @@ public class InMemoryProductRepository implements ProductRepository {
     }
 
     @Override
-    public void deleteById(@NonNull UUID id) {
+    public void deleteById(@NonNull UUID id) throws EntityNotFoundException {
         if (products.remove(id) == null) {
             throw new IllegalArgumentException("Product with ID " + id + " does not exist.");
         }
