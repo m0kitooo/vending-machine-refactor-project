@@ -13,5 +13,5 @@ public interface ProductRepository {
     Product save(Product product) throws IllegalArgumentException;
     List<Product> saveAll(Iterable<Product> products) throws IllegalArgumentException;
     void deleteById(@NonNull UUID id) throws EntityNotFoundException;
-    void deleteAll(Iterable<Product> products) throws EntityNotFoundException;
+    void deleteAll(Iterable<UUID> productIds) throws EntityNotFoundException;
 }

@@ -2,10 +2,12 @@ package com.mokitooo.service.product;
 
 import com.mokitooo.config.AppConfig;
 import com.mokitooo.exception.ContainerFulfilledException;
+import com.mokitooo.exception.PersistenceException;
 import com.mokitooo.mapper.ProductMapper;
 import com.mokitooo.model.product.Product;
 import com.mokitooo.model.product.dto.CreateProductDTO;
 import com.mokitooo.model.product.dto.ProductDTO;
+import com.mokitooo.persistance.product.ProductPersistence;
 import com.mokitooo.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -15,20 +17,25 @@ import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private final ProductRepository productRepository;
-    private final ProductMapper productMapper;
     private final int storageSize = AppConfig.INSTANCE.getProductContainerCapacity();
+    private final ProductMapper productMapper = new ProductMapper();
+    private final ProductRepository productRepository;
+    private final ProductPersistence productPersistence;
 
     @Override
     public ProductDTO register(CreateProductDTO createProductDTO) throws ContainerFulfilledException {
         if (findAll().size() > storageSize) throw new ContainerFulfilledException("Container is already fulfilled maxsize " + storageSize);
 
-        Product product = createProductDTO.toProduct();
+        Product product = productMapper.toEntity(createProductDTO);
 
         if (product.getId() != null && productRepository.findById(product.getId()) != null) {
             throw new IllegalArgumentException("Product with ID " + product.getId() + " already exists.");
         }
         return productMapper.toDTO(productRepository.save(product));
+    }
+
+    public ProductDTO update(ProductDTO product) {
+        return productMapper.toDTO(productRepository.save(productMapper.toEntity(product)));
     }
 
     @Override
@@ -46,12 +53,8 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
-    public void deleteAll(Iterable<CreateProductDTO> products) {
-        Iterable<Product> productEntities = StreamSupport.stream(products.spliterator(), false)
-                .map(CreateProductDTO::toProduct)
-                .toList();
-        
-        productRepository.deleteAll(productEntities);
+    public void deleteAll(Iterable<UUID> productIds) {
+        productRepository.deleteAll(productIds);
     }
 
     public List<ProductDTO> findAll() {
@@ -60,4 +63,19 @@ public class ProductServiceImpl implements ProductService {
                 .toList();
     }
 
+    @Override
+    public void reloadData() {
+        try {
+            productRepository.deleteAll(findAll().stream().map(ProductDTO::id).toList());
+            productRepository.saveAll(productPersistence.getPersisted());
+        } catch (PersistenceException e) {
+
+        }
+    }
+
+    @Override
+    public void persistProducts(Iterable<CreateProductDTO> products) {
+        productPersistence.persist(StreamSupport.stream(products.spliterator(), false)
+                .map(productMapper::toEntity).toList());
+    }
 }

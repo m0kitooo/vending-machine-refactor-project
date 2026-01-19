@@ -1,5 +1,6 @@
 package com.mokitooo.gui;
 
+import com.mokitooo.model.product.dto.ProductDTO;
 import com.mokitooo.model.user.User;
 import com.mokitooo.model.product.Product;
 import com.mokitooo.service.product.ProductService;
@@ -9,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 
 import static javax.swing.SwingConstants.CENTER;
 
@@ -77,13 +79,13 @@ public class UserModeScreen {
     //robi to samo co ta sama funkcja w klasia "EditVendingMachineScreen" tylko dodaje przycisku "Kup"
     public void tableContainerUpdateUI() {
 //        List<Product> products = productManager.getProducts();
-        List<Product> products = productService.findAll();
+        List<ProductDTO> products = productService.findAll();
         tableContainer.removeAll();
         int y = 0;
-        for (Product product : products) {
-            JLabel nameLabel = new JLabel(product.getName(), CENTER);
-            JLabel countLabel = new JLabel(String.valueOf(product.getQuantity()), CENTER);
-            JLabel priceLabel = new JLabel(String.format("%.2f", product.getPrice()), CENTER);
+        for (ProductDTO product : products) {
+            JLabel nameLabel = new JLabel(product.name(), CENTER);
+            JLabel countLabel = new JLabel(String.valueOf(product.quantity()), CENTER);
+            JLabel priceLabel = new JLabel(String.format("%.2f", product.price()), CENTER);
             JButton jButton = new JButton("Kup");
             jButton.setFocusable(false);
             jButton.addActionListener(e -> {
@@ -104,18 +106,18 @@ public class UserModeScreen {
         tableContainer.repaint();
     }
 
-    private void buyProduct(Product product) {
-        if (product.getQuantity() <= 0) {
+    private void buyProduct(ProductDTO product) {
+        if (product.quantity() <= 0) {
             JOptionPane.showMessageDialog(null, "Produkt się skończył.");
             return;
         }
-        if (!user.canAfford(product.getPrice())) {
+        if (!user.canAfford(product.price())) {
             JOptionPane.showMessageDialog(null, "Zbyt mało środków, nie można kupić produktu.");
             return;
         }
 
-        user.setBalance(user.getBalance().subtract(product.getPrice()));  //zmienienie stanu pieniędzy użytkownika
+        user.setBalance(user.getBalance().subtract(product.price()));  //zmienienie stanu pieniędzy użytkownika
         moneyLabelUpdateUI();                                        //graficzna zmiana pieniędzy
-        product.setQuantity(product.getQuantity() - 1);
+        productService.update(product.decreaseQuantity());
     }
 }

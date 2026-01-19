@@ -4,9 +4,23 @@ import com.mokitooo.model.product.Product;
 import com.mokitooo.model.product.dto.CreateProductDTO;
 import com.mokitooo.model.product.dto.ProductDTO;
 
-public class ProductMapper {
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+public final class ProductMapper {
     public Product toEntity(CreateProductDTO dto) {
         return Product.builder()
+                .name(dto.name())
+                .quantity(dto.quantity())
+                .price(dto.price())
+                .build();
+    }
+
+    public Product toEntity(ProductDTO dto) {
+        return Product.builder()
+                .id(dto.id())
                 .name(dto.name())
                 .quantity(dto.quantity())
                 .price(dto.price())
@@ -20,5 +34,11 @@ public class ProductMapper {
                 product.getQuantity(),
                 product.getPrice()
         );
+    }
+
+    public static List<UUID> toIds(Iterable<ProductDTO> products) {
+        return StreamSupport.stream(products.spliterator(), false)
+                .map(ProductDTO::id)
+                .collect(Collectors.toList());
     }
 }

@@ -9,9 +9,9 @@ import com.mokitooo.service.product.ProductServiceImpl;
 public class App {
     public static void main(String[] args) {
         new ProgramWindow(
-                new ProductServiceImpl(new InMemoryProductRepository()),
-                new ProductServiceImpl(new InMemoryProductRepository()),
-                new FileProductPersistence(AppConfig.INSTANCE.getProductdataFilepath())
+                new ProductServiceImpl(new InMemoryProductRepository(), new FileProductPersistence()),
+                new ProductServiceImpl(new InMemoryProductRepository(), new FileProductPersistence()),
+                new FileProductPersistence()
         );
     }
 }

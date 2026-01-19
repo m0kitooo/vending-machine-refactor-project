@@ -4,6 +4,9 @@ import com.mokitooo.gui.component.AddBalanceButton;
 import com.mokitooo.gui.component.SaveButton;
 import com.mokitooo.gui.component.UserBalanceField;
 import com.mokitooo.gui.component.UserBalanceLabel;
+import com.mokitooo.mapper.ProductMapper;
+import com.mokitooo.model.product.dto.CreateProductDTO;
+import com.mokitooo.model.product.dto.ProductDTO;
 import com.mokitooo.persistance.product.FileProductPersistence;
 import com.mokitooo.exception.ContainerFulfilledException;
 import com.mokitooo.model.user.User;
@@ -39,8 +42,8 @@ public class EditVendingMachineScreen {
 
     //przycisk służący do wczytania ostatnio zapisanego automatu
     private final JButton lastVendingMachineButton = new JButton("<html><div style='text-align: center;'>Ostatnio zapisany<br>automat</div></html>");
-    private final FileProductPersistence fileProductPersistence;
     private final JButton saveButton;
+    private final ProductMapper productMapper = new ProductMapper();
 
     public EditVendingMachineScreen(
             JPanel jPanel,
@@ -49,7 +52,6 @@ public class EditVendingMachineScreen {
             FileProductPersistence fileProductPersistence
     ) {
         this.productService = productService;
-        this.fileProductPersistence = fileProductPersistence;
         this.saveButton = new SaveButton(user, productService, fileProductPersistence, userModeScreen);
 
         jPanel.setLayout(null);
@@ -116,12 +118,11 @@ public class EditVendingMachineScreen {
         addProductButton.addActionListener(evt -> {
             try {
                 try {
-                    productService.register(
-                            Product.builder()
-                                    .name(productField.getText())
-                                    .quantity(Integer.parseInt(productCountField.getText()))
-                                    .price(BigDecimal.valueOf(Double.parseDouble(productPriceField.getText())))
-                                    .build()
+                    productService.register(CreateProductDTO.builder()
+                            .name(productField.getText())
+                            .quantity(Integer.parseInt(productCountField.getText()))
+                            .price(BigDecimal.valueOf(Double.parseDouble(productPriceField.getText())))
+                            .build()
                     );
                     tableContainerUpdateUI();                       //wizualna zmiana dla użytkownika, żeby widział dodany produkt
                 } catch (ContainerFulfilledException e) {
@@ -138,34 +139,35 @@ public class EditVendingMachineScreen {
 
         //  wczytanie ostatnio zapisanego automatu
         lastVendingMachineButton.addActionListener(evt -> {
-            try {
-                ArrayList<Product> products = fileProductPersistence.readProductsFromFile();
-                productService.deleteAll(productService.findAll());
-                productService.saveAll(products);
+//            try {
+//                ArrayList<Product> products = fileProductPersistence.readProductsFromFile();
+//                productService.deleteAll(productService.findAll());
+//                productService.saveAll(products);
+                productService.reloadData();
                 tableContainerUpdateUI();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Błąd odczytu pliku.");
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Błąd formatu danych w pliku.");
-            } catch (IndexOutOfBoundsException e) {
-                JOptionPane.showMessageDialog(null, "Niekompletne dane w pliku.");
-            }
+//            } catch (IOException e) {
+//                JOptionPane.showMessageDialog(null, "Błąd odczytu pliku.");
+//            } catch (NumberFormatException e) {
+//                JOptionPane.showMessageDialog(null, "Błąd formatu danych w pliku.");
+//            } catch (IndexOutOfBoundsException e) {
+//                JOptionPane.showMessageDialog(null, "Niekompletne dane w pliku.");
+//            }
         });
     }
 
     //graficzne wylistowanie produktów dodanych do automatu i dodanie obok nich przycisku do ich usuwania (funkcja nie dodaje tej funkcjonalności tylko ustawia dla nich ActionListener-a)
     private void tableContainerUpdateUI() {
-        List<Product> products = productService.findAll();
+        List<ProductDTO> products = productService.findAll();
         tableContainer.removeAll();
         int y = 0;
-        for (Product product : products) {
-            JLabel nameLabel = new JLabel(product.getName(), CENTER);
-            JLabel countLabel = new JLabel(String.valueOf(product.getQuantity()), CENTER);
-            JLabel priceLabel = new JLabel(String.format("%.2f", product.getPrice()), CENTER);
+        for (ProductDTO product : products) {
+            JLabel nameLabel = new JLabel(product.name(), CENTER);
+            JLabel countLabel = new JLabel(String.valueOf(product.quantity()), CENTER);
+            JLabel priceLabel = new JLabel(String.format("%.2f", product.price()), CENTER);
             JButton jButton = new JButton("Usuń");
             jButton.setFocusable(false);
             jButton.addActionListener(e -> {
-                productService.deleteById(product.getId());
+                productService.deleteById(product.id());
                 tableContainerUpdateUI();
             });
             nameLabel.setBounds(0, y, 150, 25);

@@ -56,7 +56,7 @@ public class InMemoryProductRepository implements ProductRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<Product> products) {
-        products.forEach(product -> this.products.remove(product.getId()));
+    public void deleteAll(Iterable<UUID> productIds) {
+        productIds.forEach(products::remove);
     }
 }
