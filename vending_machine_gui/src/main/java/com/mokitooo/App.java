@@ -8,11 +8,10 @@ import com.mokitooo.service.product.ProductServiceImpl;
 
 public class App {
     public static void main(String[] args) {
-        int storageSize = AppConfig.getINSTANCE().MAX_PRODUCT_CONTAINER_CAPACITY;
         new ProgramWindow(
-                new ProductServiceImpl(new InMemoryProductRepository(), storageSize),
-                new ProductServiceImpl(new InMemoryProductRepository(), storageSize),
-                new FileProductPersistence(AppConfig.getINSTANCE().PRODUCTDATA_FILEPATH)
+                new ProductServiceImpl(new InMemoryProductRepository()),
+                new ProductServiceImpl(new InMemoryProductRepository()),
+                new FileProductPersistence(AppConfig.INSTANCE.getProductdataFilepath())
         );
     }
 }
