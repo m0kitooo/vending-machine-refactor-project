@@ -2,7 +2,7 @@ package com.mokitooo.service.product;
 
 import com.mokitooo.config.AppConfig;
 import com.mokitooo.exception.ContainerFulfilledException;
-import com.mokitooo.exception.PersistenceException;
+import com.mokitooo.exception.DataAccessException;
 import com.mokitooo.mapper.ProductMapper;
 import com.mokitooo.model.product.Product;
 import com.mokitooo.model.product.dto.CreateProductDTO;
@@ -23,8 +23,14 @@ public class ProductServiceImpl implements ProductService {
     private final ProductPersistence productPersistence;
 
     @Override
-    public ProductDTO register(CreateProductDTO createProductDTO) throws ContainerFulfilledException {
-        if (findAll().size() > storageSize) throw new ContainerFulfilledException("Container is already fulfilled maxsize " + storageSize);
+    public ProductDTO register(CreateProductDTO createProductDTO)
+            throws IllegalArgumentException, ContainerFulfilledException {
+        if (createProductDTO == null) {
+            throw new IllegalArgumentException("createProductDTO can't be null");
+        }
+
+        if (findAll().size() >= storageSize)
+            throw new ContainerFulfilledException("Container is already fulfilled maxsize " + storageSize);
 
         Product product = productMapper.toEntity(createProductDTO);
 
@@ -34,12 +40,19 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.toDTO(productRepository.save(product));
     }
 
-    public ProductDTO update(ProductDTO product) {
+    public ProductDTO update(ProductDTO product) throws IllegalArgumentException {
+        if (product == null) {
+            throw new IllegalArgumentException("product can't be null");
+        }
         return productMapper.toDTO(productRepository.save(productMapper.toEntity(product)));
     }
 
     @Override
     public List<ProductDTO> saveAll(Iterable<CreateProductDTO> products) throws IllegalArgumentException {
+        if (products == null) {
+            throw new IllegalArgumentException("product can't be null");
+        }
+
         Iterable<Product> productEntities = StreamSupport.stream(products.spliterator(), false)
                 .map(productMapper::toEntity)
                 .toList();
@@ -49,11 +62,17 @@ public class ProductServiceImpl implements ProductService {
                 .toList();
     }
 
-    public void deleteById(UUID id) {
+    public void deleteById(UUID id) throws IllegalArgumentException {
+        if (id == null) {
+            throw new IllegalArgumentException("id can't be null");
+        }
         productRepository.deleteById(id);
     }
 
-    public void deleteAll(Iterable<UUID> productIds) {
+    public void deleteAll(Iterable<UUID> productIds) throws IllegalArgumentException {
+        if (productIds == null) {
+            throw new IllegalArgumentException("productIds can't be null");
+        }
         productRepository.deleteAll(productIds);
     }
 
@@ -68,13 +87,16 @@ public class ProductServiceImpl implements ProductService {
         try {
             productRepository.deleteAll(findAll().stream().map(ProductDTO::id).toList());
             productRepository.saveAll(productPersistence.getPersisted());
-        } catch (PersistenceException e) {
+        } catch (DataAccessException e) {
 
         }
     }
 
     @Override
-    public void persistProducts(Iterable<CreateProductDTO> products) {
+    public void persistProducts(Iterable<CreateProductDTO> products) throws IllegalArgumentException {
+        if (products == null) {
+            throw new IllegalArgumentException("products can't be null");
+        }
         productPersistence.persist(StreamSupport.stream(products.spliterator(), false)
                 .map(productMapper::toEntity).toList());
     }

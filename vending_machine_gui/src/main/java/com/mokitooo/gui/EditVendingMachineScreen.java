@@ -1,5 +1,7 @@
 package com.mokitooo.gui;
 
+import com.mokitooo.exception.*;
+import com.mokitooo.exception.domain.DomainDataException;
 import com.mokitooo.gui.component.AddBalanceButton;
 import com.mokitooo.gui.component.SaveButton;
 import com.mokitooo.gui.component.UserBalanceField;
@@ -7,15 +9,12 @@ import com.mokitooo.gui.component.UserBalanceLabel;
 import com.mokitooo.mapper.ProductMapper;
 import com.mokitooo.model.product.dto.CreateProductDTO;
 import com.mokitooo.model.product.dto.ProductDTO;
-import com.mokitooo.exception.ContainerFulfilledException;
 import com.mokitooo.model.user.User;
 import com.mokitooo.service.product.ProductService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import static javax.swing.SwingConstants.CENTER;
@@ -59,7 +58,7 @@ public class EditVendingMachineScreen {
     }
 
     //podpina do odpowiednich komponentów inne komponenty
-    private final void addComponents(JPanel jPanel) {
+    private void addComponents(JPanel jPanel) {
         jPanel.add(headerLabel);
         jPanel.add(lastVendingMachineButton);
         jPanel.add(userBalanceField);
@@ -117,15 +116,15 @@ public class EditVendingMachineScreen {
                 try {
                     productService.register(CreateProductDTO.builder()
                             .name(productField.getText())
-                            .quantity(Integer.parseInt(productCountField.getText()))
-                            .price(BigDecimal.valueOf(Double.parseDouble(productPriceField.getText())))
+                            .quantity(Integer.parseInt(productCountField.getText().trim()))
+                            .price(new BigDecimal(productPriceField.getText().trim()))
                             .build()
                     );
                     tableContainerUpdateUI();                       //wizualna zmiana dla użytkownika, żeby widział dodany produkt
                 } catch (ContainerFulfilledException e) {
                     JOptionPane.showMessageDialog(null, "Nie można dodać więcej produktów.");
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | DomainDataException e) {
                 JOptionPane.showMessageDialog(null, "Wprowadź dane poprawnie, pamiętaj muszisz wypełnić wszystkie pola.");
             } finally {
                 productField.setText("");
@@ -136,16 +135,16 @@ public class EditVendingMachineScreen {
 
         //  wczytanie ostatnio zapisanego automatu
         lastVendingMachineButton.addActionListener(evt -> {
-//            try {
+            try {
                 productService.reloadData();
                 tableContainerUpdateUI();
-//            } catch (IOException e) {
-//                JOptionPane.showMessageDialog(null, "Błąd odczytu pliku.");
-//            } catch (NumberFormatException e) {
-//                JOptionPane.showMessageDialog(null, "Błąd formatu danych w pliku.");
-//            } catch (IndexOutOfBoundsException e) {
-//                JOptionPane.showMessageDialog(null, "Niekompletne dane w pliku.");
-//            }
+            } catch (DataAccessException e) {
+                JOptionPane.showMessageDialog(null, "Błąd odczytu pliku.");
+            } catch (DataParsingException e) {
+                JOptionPane.showMessageDialog(null, "Błąd formatu danych w pliku.");
+            } catch (DataStructureException e) {
+                JOptionPane.showMessageDialog(null, "Niekompletne dane w pliku.");
+            }
         });
     }
 

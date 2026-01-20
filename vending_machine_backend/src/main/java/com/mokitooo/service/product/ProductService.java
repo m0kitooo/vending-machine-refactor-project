@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductService {
-    ProductDTO register(CreateProductDTO product) throws ContainerFulfilledException;
-    ProductDTO update(ProductDTO product);
+    ProductDTO register(CreateProductDTO product) throws IllegalArgumentException, ContainerFulfilledException;
+    ProductDTO update(ProductDTO product) throws IllegalArgumentException;
     List<ProductDTO> saveAll(Iterable<CreateProductDTO> products) throws IllegalArgumentException;
-    void deleteById(UUID id);
-    void deleteAll(Iterable<UUID> productIds);
+    void deleteById(UUID id) throws IllegalArgumentException;
+    void deleteAll(Iterable<UUID> productIds) throws IllegalArgumentException;
     List<ProductDTO> findAll();
     void reloadData();
-    void persistProducts(Iterable<CreateProductDTO> products);
+    void persistProducts(Iterable<CreateProductDTO> products) throws IllegalArgumentException;
 }

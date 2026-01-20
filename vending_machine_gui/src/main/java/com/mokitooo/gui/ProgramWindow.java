@@ -1,16 +1,14 @@
 package com.mokitooo.gui;
 
 import com.mokitooo.model.product.dto.ProductDTO;
-import com.mokitooo.persistance.product.FileProductPersistence;
+import com.mokitooo.model.user.User;
 import com.mokitooo.service.product.ProductService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-//  Klasa odpowiadająca za okno aplikacji, to tutaj dołączane są do okna (JFrame) inne elementy interfejsu graficznego takie jak
-//  mp: menu
 
 public class ProgramWindow extends JFrame {
 
@@ -24,11 +22,12 @@ public class ProgramWindow extends JFrame {
         setResizable(false);
 
         List<ProductDTO> savedProducts = new ArrayList<>();
+//        User user = new User(BigDecimal.ZERO);
 
         JPanel userModeScreen1 = new JPanel();
         UserModeScreen userModeScreen = new UserModeScreen(userModeScreen1, savedProducts);
         JPanel editVendingMachineScreen = new JPanel();
-        new EditVendingMachineScreen(editVendingMachineScreen, userModeScreen, productService, savedProducts);    //przekazujemy userModeScreen aby można było zmieniać zawartość podstrony "Tryb użytkowanika" z podstrony "Edytuj automat"
+        new EditVendingMachineScreen(editVendingMachineScreen, userModeScreen, productService, savedProducts);
 
         //dodanie do cardPanel-ów paneli z podstronami aby łatow można było przełączać podstrone którą aktualnie widzi użytkownik
         JPanel cardPanel = new JPanel(new CardLayout());

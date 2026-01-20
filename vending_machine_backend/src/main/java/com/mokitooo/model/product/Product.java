@@ -1,5 +1,6 @@
 package com.mokitooo.model.product;
 
+import com.mokitooo.exception.domain.ProductDomainDataException;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -24,21 +25,21 @@ public class Product {
 
     public void setName(String name) {
         if (StringUtils.isBlank(name)) {
-            throw new IllegalArgumentException("Name cannot be null or empty");
+            throw new ProductDomainDataException("Name cannot be null or empty");
         }
         this.name = name;
     }
 
     public void setQuantity(int quantity) {
         if (quantity < 0) {
-            throw new IllegalArgumentException("Quantity cannot be negative");
+            throw new ProductDomainDataException("Quantity cannot be negative");
         }
         this.quantity = quantity;
     }
 
     public void setPrice(BigDecimal price) {
-        if (price.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Price cannot be negative");
+        if (price == null || price.compareTo(BigDecimal.ZERO) < 0) {
+            throw new ProductDomainDataException("Price cannot be null or negative");
         }
         this.price = price;
     }
