@@ -3,6 +3,8 @@ package com.mokitooo.service.product;
 import com.mokitooo.config.AppConfig;
 import com.mokitooo.exception.ContainerFulfilledException;
 import com.mokitooo.exception.DataAccessException;
+import com.mokitooo.exception.DataParsingException;
+import com.mokitooo.exception.DataStructureException;
 import com.mokitooo.mapper.ProductMapper;
 import com.mokitooo.model.product.Product;
 import com.mokitooo.model.product.dto.CreateProductDTO;
@@ -83,13 +85,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void reloadData() {
-        try {
-            productRepository.deleteAll(findAll().stream().map(ProductDTO::id).toList());
-            productRepository.saveAll(productPersistence.getPersisted());
-        } catch (DataAccessException e) {
+    public void reloadData() throws DataAccessException, DataParsingException, DataStructureException {
+//        try {
+            List<Product> persistedProducts = productPersistence.getPersisted();
 
-        }
+            productRepository.deleteAll(findAll().stream().map(ProductDTO::id).toList());
+            productRepository.saveAll(persistedProducts);
+//        } catch (DataAccessException e) {
+//
+//        }
     }
 
     @Override
