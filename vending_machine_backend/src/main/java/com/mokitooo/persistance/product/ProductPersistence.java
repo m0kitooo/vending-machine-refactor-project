@@ -8,6 +8,6 @@ import com.mokitooo.model.product.Product;
 import java.util.List;
 
 public interface ProductPersistence {
-    void persist(Iterable<Product> product) throws IllegalArgumentException, DataAccessException;
+    void persist(List<Product> product) throws IllegalArgumentException, DataAccessException;
     List<Product>getPersisted() throws DataAccessException, DataParsingException, DataStructureException;
 }

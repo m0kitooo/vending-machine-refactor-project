@@ -18,11 +18,12 @@ import java.util.StringJoiner;
 
 public class FileProductPersistence implements ProductPersistence {
     private final String filename = AppConfig.INSTANCE.getProductdataFilepath();
+    private final int productContainerCapacity = AppConfig.INSTANCE.getProductContainerCapacity();
 
     @Override
-    public void persist(Iterable<Product> products) throws DataAccessException {
-        if (products == null) {
-            throw new IllegalArgumentException("products can't be null");
+    public void persist(List<Product> products) throws DataAccessException {
+        if (products == null || products.size() > productContainerCapacity) {
+            throw new IllegalArgumentException("products can't be null or exceed container capacity");
         }
 
         try (FileWriter writer = new FileWriter(filename)) {
@@ -56,6 +57,10 @@ public class FileProductPersistence implements ProductPersistence {
                     throw new DataStructureException("Incomplete data: Missing price");
                 }
                 BigDecimal price = new BigDecimal(priceLine.trim());
+
+                if (products.size() >= productContainerCapacity) {
+                    throw new DataStructureException("Exceeded product container capacity: limit is " + productContainerCapacity);
+                }
 
                 products.add(
                         Product.builder()

@@ -70,7 +70,7 @@ public class SyncInMemoryProductRepository implements ProductRepository {
             throw new IllegalArgumentException("id can't be null");
         }
         if (products.remove(id) == null) {
-            throw new IllegalArgumentException("Product with ID " + id + " does not exist.");
+            throw new EntityNotFoundException("Product with ID " + id + " does not exist.");
         }
     }
 

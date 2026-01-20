@@ -2,6 +2,8 @@ package com.mokitooo.gui;
 
 import com.mokitooo.model.product.dto.ProductDTO;
 import com.mokitooo.model.user.User;
+import com.mokitooo.service.product.ProductService;
+
 import lombok.Getter;
 
 import javax.swing.*;
@@ -23,12 +25,14 @@ public class UserModeScreen {
     private final JLabel productCountLabel = new JLabel("ilość", CENTER);
     private final JLabel productPriceLabel = new JLabel("cena", CENTER);
     private final JPanel tableContainer = new JPanel();
+    private final ProductService productService;
     @Getter
     private final User user = new User(BigDecimal.ZERO);
     private final List<ProductDTO> savedProducts;
 
-    public UserModeScreen(JPanel jPanel, List<ProductDTO> savedProducts) {
+    public UserModeScreen(JPanel jPanel, List<ProductDTO> savedProducts, ProductService productService) {
         this.savedProducts = savedProducts;
+        this.productService = productService;
         jPanel.setLayout(null);
         productsTagsContainer.setLayout(null);
         tableContainer.setLayout(null);
@@ -111,10 +115,15 @@ public class UserModeScreen {
         }
 
         user.setBalance(user.getBalance().subtract(product.price()));  //zmienienie stanu pieniędzy użytkownika
+        // productService.update(product.decreaseQuantity());
+
         moneyLabelUpdateUI();
         for (ProductDTO savedProduct : savedProducts) {
-            if (savedProduct.equals(product))
-                savedProduct.decreaseQuantity();
+            if (savedProduct.id().equals(product.id())) {
+                ProductDTO updatedProduct = savedProduct.decreaseQuantity();
+                savedProducts.set(savedProducts.indexOf(savedProduct), updatedProduct);
+                break;
+            }
         }
     }
 }

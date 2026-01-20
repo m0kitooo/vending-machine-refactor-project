@@ -25,7 +25,7 @@ public class ProgramWindow extends JFrame {
 //        User user = new User(BigDecimal.ZERO);
 
         JPanel userModeScreen1 = new JPanel();
-        UserModeScreen userModeScreen = new UserModeScreen(userModeScreen1, savedProducts);
+        UserModeScreen userModeScreen = new UserModeScreen(userModeScreen1, savedProducts, productService);
         JPanel editVendingMachineScreen = new JPanel();
         new EditVendingMachineScreen(editVendingMachineScreen, userModeScreen, productService, savedProducts);
 

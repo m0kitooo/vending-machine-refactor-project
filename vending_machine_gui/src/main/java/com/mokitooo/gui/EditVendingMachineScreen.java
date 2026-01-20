@@ -143,7 +143,7 @@ public class EditVendingMachineScreen {
             } catch (DataParsingException e) {
                 JOptionPane.showMessageDialog(null, "Błąd formatu danych w pliku.");
             } catch (DataStructureException e) {
-                JOptionPane.showMessageDialog(null, "Niekompletne dane w pliku.");
+                JOptionPane.showMessageDialog(null, "Niekompletne dane w pliku lub przekroczono pojemność kontenera.");
             }
         });
     }

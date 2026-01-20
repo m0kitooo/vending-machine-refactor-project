@@ -26,7 +26,7 @@ public class AppConfig {
         } catch (IOException e) {
             throw new RuntimeException("Could not load application.properties", e);
         }
-        int capacity = Integer.parseInt(properties.getProperty("product.container.capacity"));
+        int capacity = Integer.parseInt(properties.getProperty("product.container.capacity", "20"));
         String filepath = properties.getProperty("productdata.filepath", "TableData.txt");
         INSTANCE = new AppConfig(capacity, filepath);
     }
