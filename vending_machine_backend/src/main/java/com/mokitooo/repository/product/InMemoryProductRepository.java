@@ -10,11 +10,11 @@ public class InMemoryProductRepository implements ProductRepository {
     private final Map<UUID, Product> products;
 
     public InMemoryProductRepository() {
-        this.products = new HashMap<>();
+        this(Map.of());
     }
 
     public InMemoryProductRepository(Map<UUID, Product> products) {
-        this.products = new HashMap<>(products);
+        this.products = new LinkedHashMap<>(products);
     }
 
     @Override

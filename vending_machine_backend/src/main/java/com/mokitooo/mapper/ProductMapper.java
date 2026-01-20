@@ -36,6 +36,10 @@ public final class ProductMapper {
         );
     }
 
+    public CreateProductDTO toDto(ProductDTO dto) {
+        return new CreateProductDTO(dto.name(), dto.quantity(), dto.price());
+    }
+
     public static List<UUID> toIds(Iterable<ProductDTO> products) {
         return StreamSupport.stream(products.spliterator(), false)
                 .map(ProductDTO::id)

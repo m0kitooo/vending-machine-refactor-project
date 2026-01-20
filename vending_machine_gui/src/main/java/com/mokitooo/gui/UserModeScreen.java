@@ -2,15 +2,12 @@ package com.mokitooo.gui;
 
 import com.mokitooo.model.product.dto.ProductDTO;
 import com.mokitooo.model.user.User;
-import com.mokitooo.model.product.Product;
-import com.mokitooo.service.product.ProductService;
 import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Locale;
 
 import static javax.swing.SwingConstants.CENTER;
 
@@ -28,11 +25,10 @@ public class UserModeScreen {
     private final JPanel tableContainer = new JPanel();
     @Getter
     private final User user = new User(BigDecimal.ZERO);
-    @Getter
-    private final ProductService productService;
+    private final List<ProductDTO> savedProducts;
 
-    public UserModeScreen(JPanel jPanel, ProductService productService) {
-        this.productService = productService;
+    public UserModeScreen(JPanel jPanel, List<ProductDTO> savedProducts) {
+        this.savedProducts = savedProducts;
         jPanel.setLayout(null);
         productsTagsContainer.setLayout(null);
         tableContainer.setLayout(null);
@@ -78,11 +74,9 @@ public class UserModeScreen {
     //graficzne wylistowanie produktów dodanych do automatu i dodanie obok nich przycisku do ich zakupu (funkcja nie dodaje tej funkcjonalności tylko ustawia dla nich ActionListener-a)
     //robi to samo co ta sama funkcja w klasia "EditVendingMachineScreen" tylko dodaje przycisku "Kup"
     public void tableContainerUpdateUI() {
-//        List<Product> products = productManager.getProducts();
-        List<ProductDTO> products = productService.findAll();
         tableContainer.removeAll();
         int y = 0;
-        for (ProductDTO product : products) {
+        for (ProductDTO product : savedProducts) {
             JLabel nameLabel = new JLabel(product.name(), CENTER);
             JLabel countLabel = new JLabel(String.valueOf(product.quantity()), CENTER);
             JLabel priceLabel = new JLabel(String.format("%.2f", product.price()), CENTER);
@@ -117,7 +111,10 @@ public class UserModeScreen {
         }
 
         user.setBalance(user.getBalance().subtract(product.price()));  //zmienienie stanu pieniędzy użytkownika
-        moneyLabelUpdateUI();                                        //graficzna zmiana pieniędzy
-        productService.update(product.decreaseQuantity());
+        moneyLabelUpdateUI();
+        for (ProductDTO savedProduct : savedProducts) {
+            if (savedProduct.equals(product))
+                savedProduct.decreaseQuantity();
+        }
     }
 }

@@ -7,10 +7,8 @@ import com.mokitooo.gui.component.UserBalanceLabel;
 import com.mokitooo.mapper.ProductMapper;
 import com.mokitooo.model.product.dto.CreateProductDTO;
 import com.mokitooo.model.product.dto.ProductDTO;
-import com.mokitooo.persistance.product.FileProductPersistence;
 import com.mokitooo.exception.ContainerFulfilledException;
 import com.mokitooo.model.user.User;
-import com.mokitooo.model.product.Product;
 import com.mokitooo.service.product.ProductService;
 
 import javax.swing.*;
@@ -40,7 +38,6 @@ public class EditVendingMachineScreen {
     private final JPanel tableContainer = new JPanel();    //ważna zmienna tutaj znajdują się graficzne odwzorowania produktów
     private final ProductService productService;
 
-    //przycisk służący do wczytania ostatnio zapisanego automatu
     private final JButton lastVendingMachineButton = new JButton("<html><div style='text-align: center;'>Ostatnio zapisany<br>automat</div></html>");
     private final JButton saveButton;
     private final ProductMapper productMapper = new ProductMapper();
@@ -49,10 +46,10 @@ public class EditVendingMachineScreen {
             JPanel jPanel,
             UserModeScreen userModeScreen,
             ProductService productService,
-            FileProductPersistence fileProductPersistence
+            List<ProductDTO> savedProducts
     ) {
         this.productService = productService;
-        this.saveButton = new SaveButton(user, productService, fileProductPersistence, userModeScreen);
+        this.saveButton = new SaveButton(user, productService, userModeScreen, savedProducts);
 
         jPanel.setLayout(null);
         styleScreen();
@@ -140,9 +137,6 @@ public class EditVendingMachineScreen {
         //  wczytanie ostatnio zapisanego automatu
         lastVendingMachineButton.addActionListener(evt -> {
 //            try {
-//                ArrayList<Product> products = fileProductPersistence.readProductsFromFile();
-//                productService.deleteAll(productService.findAll());
-//                productService.saveAll(products);
                 productService.reloadData();
                 tableContainerUpdateUI();
 //            } catch (IOException e) {
